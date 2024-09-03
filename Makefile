@@ -23,3 +23,11 @@ attach:
 
 config:
 	$(DOCKER_COMPOSE_PROD) config
+
+# Welcome to my place
+
+wtmp-logs:
+	$(DOCKER_COMPOSE_PROD) logs -f wtmp-backend
+
+wtmp-attach:
+	$(DOCKER_COMPOSE_PROD) exec wtmp-backend pm2 attach 0
