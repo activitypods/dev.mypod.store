@@ -93,6 +93,9 @@ services:
       - 'traefik.http.routers.wtmp-backend.tls.certresolver=myresolver'
     env_file:
       - .env.wtmp-backend
+    # Redirect backend calls to Traefik container
+    extra_hosts:
+      - "${BACKEND_DOMAIN_NAME}:172.20.5.10"
 
   wtmp-frontend:
     image: activitypods/dev-welcometomyplace-frontend
