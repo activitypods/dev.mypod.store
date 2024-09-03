@@ -76,6 +76,37 @@ services:
     environment:
       REACT_APP_CONFIG_URL: 'https://${BACKEND_DOMAIN_NAME}/.well-known/config.js'
 
+  wtmp-backend:
+    image: activitypods/dev-welcometomyplace-backend
+    depends_on:
+      - fuseki
+      - redis
+    volumes:
+      - ./data/wtmp/logs:/app/backend/logs
+      - ./data/wtmp/jwt:/app/backend/jwt
+    expose:
+      - '3000'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.wtmp-backend.rule=(Host(`${WTMP_DOMAIN_NAME}`) && (PathPrefix(`/api`) || PathPrefix(`/.well-known`)))'
+      - 'traefik.http.routers.wtmp-backend.entrypoints=websecure'
+      - 'traefik.http.routers.wtmp-backend.tls.certresolver=myresolver'
+    env_file:
+      - .env.wtmp-backend
+
+  wtmp-frontend:
+    image: activitypods/dev-welcometomyplace-frontend
+    depends_on:
+      - wtmp-backend
+    restart: always
+    expose:
+      - '5000'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.wtmp-frontend.rule=Host(`${WTMP_DOMAIN_NAME}`)'
+      - 'traefik.http.routers.wtmp-frontend.entrypoints=websecure'
+      - 'traefik.http.routers.wtmp-frontend.tls.certresolver=myresolver'
+
   redis:
     image: redis
     expose:
