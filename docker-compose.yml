@@ -56,10 +56,10 @@ services:
       - .env.backend
       - path: .env.backend.local
         required: false
-    # Redirect backend calls to Traefik container
-    # Required to allow the backend to "fetch itself"
+    # Redirect backend-to-backend calls to Traefik container
     extra_hosts:
       - "${BACKEND_DOMAIN_NAME}:172.20.5.10"
+      - "${WTMP_DOMAIN_NAME}:172.20.5.10"
 
   activitypods-frontend:
     image: activitypods/frontend
@@ -93,9 +93,10 @@ services:
       - 'traefik.http.routers.wtmp-backend.tls.certresolver=myresolver'
     env_file:
       - .env.wtmp-backend
-    # Redirect backend calls to Traefik container
+    # Redirect backend-to-backend calls to Traefik container
     extra_hosts:
       - "${BACKEND_DOMAIN_NAME}:172.20.5.10"
+      - "${WTMP_DOMAIN_NAME}:172.20.5.10"
 
   wtmp-frontend:
     image: activitypods/dev-welcometomyplace-frontend
