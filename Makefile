@@ -31,3 +31,19 @@ wtmp-logs:
 
 wtmp-attach:
 	$(DOCKER_COMPOSE_PROD) exec wtmp-backend pm2 attach 0
+
+# Mutual-Aid
+
+mutualaid-logs:
+	$(DOCKER_COMPOSE_PROD) logs -f mutualaid-backend
+
+mutualaid-attach:
+	$(DOCKER_COMPOSE_PROD) exec mutualaid-backend pm2 attach 0
+
+# Mastopod
+
+mastopod-logs:
+	$(DOCKER_COMPOSE_PROD) logs -f mastopod-backend
+
+mastopod-attach:
+	$(DOCKER_COMPOSE_PROD) exec mastopod-backend pm2 attach 0
