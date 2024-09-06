@@ -104,7 +104,7 @@ services:
       - wtmp-backend
     restart: always
     expose:
-      - '5000'
+      - '4000'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.wtmp-frontend.rule=Host(`${WTMP_DOMAIN_NAME}`)'
@@ -139,7 +139,7 @@ services:
       - mutualaid-backend
     restart: always
     expose:
-      - '5000'
+      - '4000'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.mutualaid-frontend.rule=Host(`${MUTUALAID_DOMAIN_NAME}`)'
@@ -174,7 +174,7 @@ services:
       - mastopod-backend
     restart: always
     expose:
-      - '5000'
+      - '4000'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.mastopod-frontend.rule=Host(`${MASTOPOD_DOMAIN_NAME}`)'
