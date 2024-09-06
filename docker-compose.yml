@@ -111,6 +111,76 @@ services:
       - 'traefik.http.routers.wtmp-frontend.entrypoints=websecure'
       - 'traefik.http.routers.wtmp-frontend.tls.certresolver=myresolver'
 
+  mutualaid-backend:
+    image: activitypods/dev-mutualaid-backend
+    depends_on:
+      - fuseki
+      - redis
+    volumes:
+      - ./data/mutualaid/logs:/app/backend/logs
+      - ./data/mutualaid/jwt:/app/backend/jwt
+    expose:
+      - '3000'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.mutualaid-backend.rule=(Host(`${MUTUALAID_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/.well-known`)))'
+      - 'traefik.http.routers.mutualaid-backend.entrypoints=websecure'
+      - 'traefik.http.routers.mutualaid-backend.tls.certresolver=myresolver'
+    env_file:
+      - .env.mutualaid-backend
+    # Redirect backend-to-backend calls to Traefik container
+    extra_hosts:
+      - "${BACKEND_DOMAIN_NAME}:172.20.5.10"
+      - "${MUTUALAID_DOMAIN}:172.20.5.10"
+
+  mutualaid-frontend:
+    image: activitypods/dev-mutualaid-frontend
+    depends_on:
+      - mutualaid-backend
+    restart: always
+    expose:
+      - '5000'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.mutualaid-frontend.rule=Host(`${MUTUALAID_DOMAIN}`)'
+      - 'traefik.http.routers.mutualaid-frontend.entrypoints=websecure'
+      - 'traefik.http.routers.mutualaid-frontend.tls.certresolver=myresolver'
+
+  mastopod-backend:
+    image: activitypods/dev-mastopod-backend
+    depends_on:
+      - fuseki
+      - redis
+    volumes:
+      - ./data/mastopod/logs:/app/backend/logs
+      - ./data/mastopod/jwt:/app/backend/jwt
+    expose:
+      - '3000'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.mastopod-backend.rule=(Host(`${MASTOPOD_DOMAIN}`) && (PathPrefix(`/api`) || PathPrefix(`/.well-known`)))'
+      - 'traefik.http.routers.mastopod-backend.entrypoints=websecure'
+      - 'traefik.http.routers.mastopod-backend.tls.certresolver=myresolver'
+    env_file:
+      - .env.mastopod-backend
+    # Redirect backend-to-backend calls to Traefik container
+    extra_hosts:
+      - "${BACKEND_DOMAIN_NAME}:172.20.5.10"
+      - "${MASTOPOD_DOMAIN}:172.20.5.10"
+
+  mastopod-frontend:
+    image: activitypods/dev-mastopod-frontend
+    depends_on:
+      - mastopod-backend
+    restart: always
+    expose:
+      - '5000'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.mastopod-frontend.rule=Host(`${MASTOPOD_DOMAIN}`)'
+      - 'traefik.http.routers.mastopod-frontend.entrypoints=websecure'
+      - 'traefik.http.routers.mastopod-frontend.tls.certresolver=myresolver'
+
   redis:
     image: redis
     expose:
