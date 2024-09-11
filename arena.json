@@ -34,6 +34,111 @@
       "host": "redis",
       "port": 6379,
       "db": 1
+    },
+    {
+      "name": "remotePost",
+      "hostId": "wtmp",
+      "host": "redis",
+      "port": 6379,
+      "db": 4
+    },
+    {
+      "name": "processInbox",
+      "hostId": "wtmp",
+      "host": "redis",
+      "port": 6379,
+      "db": 4
+    },
+    {
+      "name": "processOutbox",
+      "hostId": "wtmp",
+      "host": "redis",
+      "port": 6379,
+      "db": 4
+    },
+    {
+      "name": "registerListener",
+      "hostId": "wtmp",
+      "host": "redis",
+      "port": 6379,
+      "db": 4
+    },
+    {
+      "name": "timeout",
+      "hostId": "wtmp",
+      "host": "redis",
+      "port": 6379,
+      "db": 4
+    },
+    {
+      "name": "remotePost",
+      "hostId": "mastopod",
+      "host": "redis",
+      "port": 6379,
+      "db": 6
+    },
+    {
+      "name": "processInbox",
+      "hostId": "mastopod",
+      "host": "redis",
+      "port": 6379,
+      "db": 6
+    },
+    {
+      "name": "processOutbox",
+      "hostId": "mastopod",
+      "host": "redis",
+      "port": 6379,
+      "db": 6
+    },
+    {
+      "name": "registerListener",
+      "hostId": "mastopod",
+      "host": "redis",
+      "port": 6379,
+      "db": 6
+    },
+    {
+      "name": "timeout",
+      "hostId": "mastopod",
+      "host": "redis",
+      "port": 6379,
+      "db": 6
+    },
+    {
+      "name": "remotePost",
+      "hostId": "mutualaid",
+      "host": "redis",
+      "port": 6379,
+      "db": 8
+    },
+    {
+      "name": "processInbox",
+      "hostId": "mutualaid",
+      "host": "redis",
+      "port": 6379,
+      "db": 8
+    },
+    {
+      "name": "processOutbox",
+      "hostId": "mutualaid",
+      "host": "redis",
+      "port": 6379,
+      "db": 8
+    },
+    {
+      "name": "registerListener",
+      "hostId": "mutualaid",
+      "host": "redis",
+      "port": 6379,
+      "db": 8
+    },
+    {
+      "name": "timeout",
+      "hostId": "mutualaid",
+      "host": "redis",
+      "port": 6379,
+      "db": 8
     }
   ]
 }
